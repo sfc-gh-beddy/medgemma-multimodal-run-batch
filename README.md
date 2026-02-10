@@ -51,7 +51,7 @@ Execute `setup.sql` in Snowflake to create required resources:
 -- Creates:
 -- - Database: MEDGEMMA_DEMO
 -- - Stages: ECG_STAGE, ECG_BATCH_OUTPUT_STAGE
--- - Compute Pool: MEDGEMMA_COMPUTE_POOL (1x NVIDIA A10G)
+-- - Compute Pool: MEDGEMMA_COMPUTE_POOL (GPU_NV_M: 4x NVIDIA A10G)
 -- - Network rules for external access
 ```
 
@@ -104,7 +104,7 @@ job = mv.run_batch(
 
 ## Performance
 
-### Single Node (1x NVIDIA A10G)
+### Single Node (GPU_NV_M: 4x NVIDIA A10G)
 
 | Images | Inference Time | Throughput | Avg/Image |
 |--------|----------------|------------|-----------|
