@@ -104,11 +104,15 @@ job = mv.run_batch(
 
 ## Performance
 
-| Images | Nodes | Time | Throughput |
-|--------|-------|------|------------|
-| 100 | 1 | ~7 min | ~860 img/hr |
-| 200 | 1 | ~12 min | ~1,000 img/hr |
-| 500 | 1 | ~27 min | ~1,100 img/hr |
+### Single Node (1x NVIDIA A10G)
+
+| Images | Inference Time | Throughput | Avg/Image |
+|--------|----------------|------------|-----------|
+| 100 | ~60s | ~6,000 img/hr | 0.6s |
+| 200 | ~147s | ~4,900 img/hr | 0.73s |
+| 500 | ~330s | ~5,400 img/hr | 0.67s |
+
+*Note: Startup overhead is ~2-3 minutes (model loading, vLLM warmup). Throughput measured during active inference.*
 
 **Token usage per image**: ~1,100-1,220 tokens (836 prompt + 300-385 completion)
 
