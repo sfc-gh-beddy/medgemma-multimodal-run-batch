@@ -116,13 +116,11 @@ job = mv.run_batch(
 
 ### Multi-Node (2x GPU_NV_M, replicas=2)
 
-| Images | Result | Notes |
-|--------|--------|-------|
-| 100 | No scaling benefit | Node 2 initialized after Node 1 finished (~1.5 min stagger) |
+| Images | Inference Time | Throughput | Notes |
+|--------|----------------|------------|-------|
+| 100* | ~30s | ~6,000 img/hr | *No scaling - see note below |
 
-**Finding**: For small batch sizes (100 images, ~30s inference), the staggered node initialization means Node 1 completes before Node 2 is ready. Multi-node scaling benefits require larger batches where inference time exceeds the initialization delta.
-
-**Recommendation**: Use multi-node for batches of 500+ images where inference time (5+ minutes) amortizes the startup overhead.
+*\*100 images: Node 2 initialized ~1.5 min after Node 1. With only ~30s of inference, Node 1 completed before Node 2 was ready. Multi-node scaling requires larger batches where inference time exceeds the initialization stagger.*
 
 **Token usage per image**: ~1,100-1,220 tokens (836 prompt + 300-385 completion)
 
