@@ -114,6 +114,16 @@ job = mv.run_batch(
 
 *Note: Startup overhead is ~2-3 minutes (model loading, vLLM warmup). Throughput measured during active inference.*
 
+### Multi-Node (2x GPU_NV_M, replicas=2)
+
+| Images | Result | Notes |
+|--------|--------|-------|
+| 100 | No scaling benefit | Node 2 initialized after Node 1 finished (~1.5 min stagger) |
+
+**Finding**: For small batch sizes (100 images, ~30s inference), the staggered node initialization means Node 1 completes before Node 2 is ready. Multi-node scaling benefits require larger batches where inference time exceeds the initialization delta.
+
+**Recommendation**: Use multi-node for batches of 500+ images where inference time (5+ minutes) amortizes the startup overhead.
+
 **Token usage per image**: ~1,100-1,220 tokens (836 prompt + 300-385 completion)
 
 ## Files
